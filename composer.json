@@ -1,0 +1,42 @@
+{
+    "name": "augusthur/json-respector",
+    "type": "library",
+    "description": "A respect/validation instances creator from JSON Schemas",
+    "keywords": [
+        "validation",
+        "validator",
+        "json",
+        "schema",
+        "json-schema",
+        "respect"
+    ],
+    "homepage": "https://github.com/augusthur/json-respector",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Augusto Mathurin",
+            "homepage": "https://github.com/augusthur"
+        }
+    ],
+    "require": {
+        "php": ">=5.6.0",
+        "respect/validation": "^1.1.12"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.6",
+        "squizlabs/php_codesniffer": "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Augusthur\\JsonRespector\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Augusthur\\JsonRespector\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    }
+}
