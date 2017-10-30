@@ -11,7 +11,7 @@ class FormatRule extends AbstractSimpleRule
             $this->rule = 'date';
             $this->args = [DateTime::ATOM];
         } elseif ($value == 'email') {
-            $this->rule = email;
+            $this->rule = 'email';
             $this->args = [];
         } elseif ($value == 'uri') {
             $this->rule = 'url';
