@@ -32,4 +32,39 @@ class ValidatorService
     {
         return new Validator();
     }
+
+    public function prepareData($schema, $data, $deleteNulls = false)
+    {
+        foreach ($schema['properties'] as $prop => $rules) {
+            if (array_key_exists($prop, $data)) {
+                if (is_null($data[$prop])) {
+                    if ($deleteNulls) {
+                        if (array_key_exists('default', $rules)) {
+                            $data[$prop] = $rules['default'];
+                        } else {
+                            unset($data[$prop]);
+                        }
+                    }
+                } elseif (array_key_exists('type', $rules)) {
+                    switch ($rules['type']) {
+                        case 'integer':
+                            $data[$prop] = (int) $data[$prop];
+                            break;
+                        case 'number':
+                            $data[$prop] = (float) $data[$prop];
+                            break;
+                        case 'string':
+                            $data[$prop] = (string) $data[$prop];
+                            break;
+                        case 'boolean':
+                            $data[$prop] = (bool) $data[$prop];
+                            break;
+                    }
+                }
+            } elseif (array_key_exists('default', $rules)) {
+                $data[$prop] = $rules['default'];
+            }
+        }
+        return $data;
+    }
 }
