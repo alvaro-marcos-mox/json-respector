@@ -33,9 +33,12 @@ class ValidatorService
         return new Validator();
     }
 
-    public function prepareData($schema, $data, $deleteNulls = false)
+    public function prepareData($properties, $data, $deleteNulls = false)
     {
-        foreach ($schema['properties'] as $prop => $rules) {
+        if (array_key_exists('properties', $properties)) {
+            $properties = $properties['properties'];
+        }
+        foreach ($properties as $prop => $rules) {
             if (array_key_exists($prop, $data)) {
                 if (is_null($data[$prop])) {
                     if ($deleteNulls) {
