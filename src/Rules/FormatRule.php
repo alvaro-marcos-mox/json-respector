@@ -10,6 +10,12 @@ class FormatRule extends AbstractSimpleRule
         if ($value == 'date-time') {
             $this->rule = 'date';
             $this->args = [DateTime::ATOM];
+        } elseif ($value == 'date') {
+            $this->rule = 'date';
+            $this->args = ['Y-m-d'];
+        } elseif ($value == 'time') {
+            $this->rule = 'date';
+            $this->args = ['H:i:sP'];
         } elseif ($value == 'email') {
             $this->rule = 'email';
             $this->args = [];

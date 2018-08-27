@@ -56,6 +56,20 @@ class ArrayTest extends TestCase
         $this->assertFalse($v->validate([1, 2, 3, 4]));
     }
 
+    public function testContains()
+    {
+        $schema = [
+            'type' => 'array',
+            'contains' => [
+                'type' => 'integer',
+            ],
+        ];
+        $v = $this->validator->fromSchema($schema);
+        $this->assertTrue($v->validate([1, 'one', 2]));
+        $this->assertTrue($v->validate([1, 2, 3, 4]));
+        $this->assertFalse($v->validate(['one', 'two']));
+    }
+
     public function tearDown()
     {
         // Clean up the test case, called for every defined test
