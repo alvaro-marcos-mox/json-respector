@@ -12,6 +12,27 @@ class AssocArrayTest extends TestCase
       $this->validator = new ValidatorService();
     }
 
+    public function testNoAdditional()
+    {
+        $schema = '{
+            "type": "object",
+            "properties": {
+                "prop1": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        }';
+        $v = $this->validator->fromSchema($schema);
+        $this->assertTrue($v->validate([
+            'prop1' => 'abc',
+        ]));
+        $this->assertFalse($v->validate([
+            'prop1' => 'abc',
+            'prop2' => 'def',
+        ]));
+    }
+
     public function testMixed()
     {
         $schema = '{
