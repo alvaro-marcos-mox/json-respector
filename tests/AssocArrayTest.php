@@ -33,6 +33,20 @@ class AssocArrayTest extends TestCase
         ]));
     }
 
+    public function testEmptyObject()
+    {
+        $schema = '{
+            "type": "object",
+            "properties": {},
+            "additionalProperties": false
+        }';
+        $v = $this->validator->fromSchema($schema);
+        $this->assertFalse($v->validate([
+            'prop1' => 'abc',
+            'prop2' => 'def',
+        ]));
+    }
+
     public function testMixed()
     {
         $schema = '{

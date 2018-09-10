@@ -5,11 +5,11 @@ class AdditionalPropertiesRule extends AbstractSimpleRule
 {
     public function __construct($value, $schema, $service, $assoc)
     {
+        $exclude = isset($schema['properties']) ? $schema['properties'] : [];
         if ($value === false) {
-            $this->rule = 'alwaysValid';
-            $this->args = [];
+            $this->rule = 'length';
+            $this->args = [0, count($exclude)];
         } else {
-            $exclude = isset($schema['properties']) ? $schema['properties'] : [];
             $this->args = [
                 function ($input) use ($exclude) {
                     return array_diff_key($input, $exclude);
