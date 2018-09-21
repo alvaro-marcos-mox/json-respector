@@ -38,6 +38,9 @@ class ValidatorService
         if (array_key_exists('properties', $properties)) {
             $properties = $properties['properties'];
         }
+        if (!is_array($data)) {
+            return $data;
+        }
         foreach ($properties as $prop => $rules) {
             if (array_key_exists($prop, $data)) {
                 if (is_null($data[$prop])) {
