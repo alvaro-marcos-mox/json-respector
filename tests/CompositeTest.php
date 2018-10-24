@@ -9,7 +9,7 @@ class CompositeTest extends TestCase
 
     public function setUp()
     {
-      $this->validator = new ValidatorService();
+        $this->validator = new ValidatorService();
     }
 
     public function testAllOf()

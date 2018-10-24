@@ -65,6 +65,9 @@ class ValidatorService
                         case 'boolean':
                             $data[$prop] = (bool) $data[$prop];
                             break;
+                        case 'object':
+                            $data[$prop] = $this->prepareData($rules, $data[$prop], $deleteNulls);
+                            break;
                     }
                 }
             } elseif (array_key_exists('default', $rules)) {
