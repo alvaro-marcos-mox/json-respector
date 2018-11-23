@@ -33,13 +33,19 @@ class ValidatorService
         return new Validator();
     }
 
-    public function prepareData($properties, $data, $deleteNulls = false)
+    public function prepareData($schema, $data, $deleteNulls = false)
     {
-        if (array_key_exists('properties', $properties)) {
-            $properties = $properties['properties'];
-        }
         if (!is_array($data)) {
             return $data;
+        } elseif (array_key_exists('additionalProperties', $schema)) {
+            $properties = array_fill_keys(array_keys($data), $schema['additionalProperties']);
+            if (array_key_exists('properties', $schema)) {
+                $properties = array_merge($properties, $schema['properties']);
+            }
+        } elseif (array_key_exists('properties', $schema)) {
+            $properties = $schema['properties'];
+        } else {
+            $properties = $schema;
         }
         foreach ($properties as $prop => $rules) {
             if (array_key_exists($prop, $data)) {
