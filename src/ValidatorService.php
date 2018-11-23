@@ -37,7 +37,7 @@ class ValidatorService
     {
         if (!is_array($data)) {
             return $data;
-        } elseif (array_key_exists('additionalProperties', $schema)) {
+        } elseif (array_key_exists('additionalProperties', $schema) && is_array($schema['additionalProperties'])) {
             $properties = array_fill_keys(array_keys($data), $schema['additionalProperties']);
             if (array_key_exists('properties', $schema)) {
                 $properties = array_merge($properties, $schema['properties']);

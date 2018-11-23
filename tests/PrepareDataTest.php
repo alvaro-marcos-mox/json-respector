@@ -99,6 +99,28 @@ class PrepareDataTest extends TestCase
         $this->assertEquals('abc', $preparedEmptyData['prop1']);
     }
 
+    public function testAdditionalPropsFalse()
+    {
+        $schema = json_decode('{
+            "type": "object",
+            "properties": {
+                "prop1": {
+                    "type": "string",
+                    "default": "abc"
+                }
+            },
+            "additionalProperties": false
+        }', true);
+        $data = [
+            'prop1' => 'xyz',
+            'prop2' => 2,
+        ];
+        $preparedData = $this->validator->prepareData($schema, $data, true);
+        $preparedEmptyData = $this->validator->prepareData($schema, [], true);
+        $this->assertCount(2, $preparedData);
+        $this->assertCount(1, $preparedEmptyData);
+    }
+
     public function tearDown()
     {
         // Clean up the test case, called for every defined test
