@@ -69,7 +69,7 @@ class ValidatorService
                             $data[$prop] = (string) $data[$prop];
                             break;
                         case 'boolean':
-                            $data[$prop] = (bool) $data[$prop];
+                            $data[$prop] = filter_var($data[$prop], FILTER_VALIDATE_BOOLEAN);
                             break;
                         case 'object':
                             $data[$prop] = $this->prepareData($rules, $data[$prop], $deleteNulls);
