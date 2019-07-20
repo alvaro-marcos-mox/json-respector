@@ -82,4 +82,27 @@ class ValidatorService
         }
         return $data;
     }
+
+    public function prepareSchema(array $schema, bool $recursive = true)
+    {
+        if (isset($schema['properties'])) {
+            $keys = $schema['properties'];
+            foreach ($keys as $k => $v) {
+                $required = $schema['required'] ?? [];
+                $newSchema = $recursive ? $this->prepareSchema($v, true) : $v;
+                if (!in_array($k, $required)) {
+                    $schema['properties'][$k] = [
+                        'oneOf' => [
+                            ['type' => 'null'],
+                            $newSchema,
+                        ],
+                    ];
+                } else {
+                    $schema['properties'][$k] = $newSchema;
+                }
+            }
+            $schema['required'] = [];
+        }
+        return $schema;
+    }
 }
