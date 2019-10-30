@@ -45,7 +45,7 @@ class ValidatorService
         } elseif (array_key_exists('properties', $schema)) {
             $properties = $schema['properties'];
         } else {
-            $properties = $schema;
+            $properties = [];
         }
         foreach ($properties as $prop => $rules) {
             if (array_key_exists($prop, $data)) {
